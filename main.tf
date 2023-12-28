@@ -34,6 +34,7 @@ resource "aws_launch_template" "main" {
 # auto scaling group resource
 resource "aws_autoscaling_group" "bar" {
   name                 = "main"
+  availability_zones = ["us-east-1a"]
   max_size             = 2
   min_size             = 1
   desired_capacity     = 1
