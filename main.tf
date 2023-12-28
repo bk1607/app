@@ -15,10 +15,10 @@ resource "aws_launch_template" "main" {
 
 
   placement {
-    availability_zone = "us-west-2a"
+    availability_zone = "us-west-1a"
   }
 
-  
+
 
   tag_specifications {
     resource_type = "instance"
