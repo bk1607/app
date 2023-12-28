@@ -15,7 +15,7 @@ resource "aws_launch_template" "main" {
 
 
   placement {
-    availability_zone = "us-west-1a"
+    availability_zone = "us-east-1a"
   }
 
 
