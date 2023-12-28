@@ -30,3 +30,16 @@ resource "aws_launch_template" "main" {
 
   user_data = filebase64("${path.module}/example.sh")
 }
+
+# auto scaling group resource
+resource "aws_autoscaling_group" "bar" {
+  name                 = "main"
+  max_size             = 2
+  min_size             = 1
+  desired_capacity     = 1
+  launch_template {
+    id      = aws_launch_template.main.id
+    version = "$Latest"
+  }
+
+}
