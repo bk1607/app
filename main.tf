@@ -1,46 +1,68 @@
 # launch template for auto scaling group
 resource "aws_launch_template" "main" {
-  name = "main"
-
-
-
+  name = "${var.name}-${var.env}"
 
   image_id = data.aws_ami.ami_id.id
-
-
-
-  instance_type = "t2.nano"
-
-
-
-
-  placement {
-    availability_zone = "us-east-1a"
+  vpc_security_group_ids = [aws_security_group.main.id]
+  instance_type = var.instance_type
+  instance_market_options {
+    market_type = "spot"
   }
-
-
 
   tag_specifications {
     resource_type = "instance"
 
     tags = {
-      Name = "test"
+      Name = var.name
     }
   }
 
-  user_data = filebase64("${path.module}/example.sh")
+
+  user_data = base64encode(templatefile("${path.module}/example.sh",{
+    name = var.name
+    env = var.env
+  } ))
 }
 
 # auto scaling group resource
 resource "aws_autoscaling_group" "bar" {
-  name                 = "main"
-  availability_zones = ["us-east-1a"]
-  max_size             = 2
-  min_size             = 1
-  desired_capacity     = 1
+  name                 = "${var.name}-${var.env}"
+  max_size             = var.max_size
+  min_size             = var.min_size
+  desired_capacity     = var.desired_capacity
+  vpc_zone_identifier = var.subnets
+
   launch_template {
     id      = aws_launch_template.main.id
     version = "$Latest"
   }
 
+}
+
+#security group
+resource "aws_security_group" "main" {
+  name        = "${var.name}-${var.env}"
+  description = "${var.name}-${var.env}"
+  vpc_id      = data.aws_vpc.vpc_id.id
+
+  ingress {
+    description      = "ssh"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = [var.bastion]
+
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "${var.name}-${var.env}"
+  }
 }

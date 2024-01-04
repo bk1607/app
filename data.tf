@@ -3,3 +3,9 @@ data "aws_ami" "ami_id" {
   name_regex       = "Centos-8-DevOps-Practice"
   owners           = ["973714476881"]
 }
+
+data "aws_vpc" "vpc_id" {
+  tags = {
+    Name = "main"
+  }
+}
