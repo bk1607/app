@@ -5,6 +5,9 @@ resource "aws_launch_template" "main" {
   image_id = data.aws_ami.ami_id.id
   vpc_security_group_ids = [aws_security_group.main.id]
   instance_type = var.instance_type
+  iam_instance_profile {
+    name = aws_iam_instance_profile.test_profile.name
+  }
   instance_market_options {
     market_type = "spot"
   }
@@ -13,7 +16,7 @@ resource "aws_launch_template" "main" {
     resource_type = "instance"
 
     tags = {
-      Name = var.name
+      Name = "${var.name}-${var.env}"
     }
   }
 
@@ -66,3 +69,4 @@ resource "aws_security_group" "main" {
     Name = "${var.name}-${var.env}"
   }
 }
+
