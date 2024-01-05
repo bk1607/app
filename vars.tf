@@ -6,3 +6,5 @@ variable "min_size" {}
 variable "desired_capacity" {}
 variable "subnets" {}
 variable "bastion" {}
+variable "port_number" {}
+variable "allow_app" {}

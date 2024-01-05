@@ -56,6 +56,15 @@ resource "aws_security_group" "main" {
     cidr_blocks      = [var.bastion]
 
   }
+  ingress {
+    description      = "http"
+    from_port        = var.port_number
+    to_port          = var.port_number
+    protocol         = "tcp"
+    cidr_blocks      = [var.allow_app]
+
+  }
+
 
   egress {
     from_port        = 0
