@@ -61,7 +61,7 @@ resource "aws_security_group" "main" {
     from_port        = var.port_number
     to_port          = var.port_number
     protocol         = "tcp"
-    cidr_blocks      = [var.allow_app]
+    cidr_blocks      = var.allow_app
 
   }
 
