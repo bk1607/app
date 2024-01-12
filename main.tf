@@ -46,7 +46,7 @@ resource "aws_autoscaling_group" "bar" {
 resource "aws_security_group" "main" {
   name        = "${var.name}-${var.env}"
   description = "${var.name}-${var.env}"
-  vpc_id      = data.aws_vpc.vpc_id.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description      = "ssh"

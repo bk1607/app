@@ -8,3 +8,4 @@ variable "subnets" {}
 variable "bastion" {}
 variable "port_number" {}
 variable "allow_app" {}
+variable "vpc_id" {}

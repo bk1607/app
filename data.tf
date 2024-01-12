@@ -4,8 +4,8 @@ data "aws_ami" "ami_id" {
   owners           = ["973714476881"]
 }
 
-data "aws_vpc" "vpc_id" {
-  tags = {
-    Name = "main"
-  }
-}
+#data "aws_vpc" "vpc_id" {
+#  tags = {
+#    Name = "main"
+#  }
+#}
