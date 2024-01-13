@@ -9,3 +9,4 @@ variable "bastion" {}
 variable "port_number" {}
 variable "allow_app" {}
 variable "vpc_id" {}
+variable "lb_dns_name" {}

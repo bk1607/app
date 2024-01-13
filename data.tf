@@ -9,3 +9,6 @@ data "aws_ami" "ami_id" {
 #    Name = "main"
 #  }
 #}
+data "aws_route53_zone" "main" {
+  name = "devops2023.online"
+}
