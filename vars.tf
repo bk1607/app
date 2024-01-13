@@ -10,5 +10,5 @@ variable "port_number" {}
 variable "allow_app" {}
 variable "vpc_id" {}
 variable "lb_dns_name" {}
-variable "listener_arn" {}
-variable "priority" {}
+#variable "listener_arn" {}
+#variable "priority" {}
